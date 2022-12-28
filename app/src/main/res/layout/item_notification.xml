@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+
+    <ImageView
+        android:id="@+id/img_type_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_8dp"
+        android:src="@drawable/ic_warning_notificcation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/txt_object_type"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_8dp"
+        android:layout_marginEnd="@dimen/size_8dp"
+        android:textColor="@color/black_800"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/img_type_notify"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.85"
+        tools:text="PickList - PL2211241RYSE_SIO_004" />
+
+    <TextView
+        android:id="@+id/txt_content"
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_8dp"
+        android:layout_marginEnd="@dimen/size_8dp"
+        android:textColor="@color/black_800"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/img_type_notify"
+        app:layout_constraintTop_toBottomOf="@id/txt_object_type"
+        app:layout_constraintWidth_percent="0.82"
+        tools:text="Bạn vừa được phân công danh sách lấy hàng mới 3213" />
+
+    <TextView
+        android:id="@+id/txt_date_created"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_8dp"
+        android:layout_marginTop="2dp"
+        android:paddingBottom="@dimen/size_8dp"
+        app:layout_constraintStart_toEndOf="@id/img_type_notify"
+        app:layout_constraintTop_toBottomOf="@+id/txt_content"
+        tools:text="07:00 31/10/2022" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#E7E7E7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

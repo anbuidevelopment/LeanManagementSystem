@@ -1,6 +1,7 @@
 package allianceone.prog.leanmanagementsystem.repository
 
 import allianceone.prog.leanmanagementsystem.data.model.DriverConfigData
+import allianceone.prog.leanmanagementsystem.data.model.Notification
 import allianceone.prog.leanmanagementsystem.data.model.PolicyData
 import allianceone.prog.leanmanagementsystem.data.model.PolicyUser
 import allianceone.prog.leanmanagementsystem.data.sql.JdbcController
@@ -9,7 +10,8 @@ import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.Statement
 
-class QuerySQLRepository(private val driverConfigData: DriverConfigData = DriverConfigData()) : IQuerySQLService {
+class QuerySQLRepository(private val driverConfigData: DriverConfigData = DriverConfigData()) :
+    IQuerySQLService {
     private val jdbcController = JdbcController()
 
     override fun checkValidStaffId(staffId: String): Boolean {
@@ -108,5 +110,57 @@ class QuerySQLRepository(private val driverConfigData: DriverConfigData = Driver
         }
         return listDataPolicy
 
+    }
+
+    override fun findAllNotification(date: String): List<Notification> {
+        val listNotification = mutableListOf<Notification>()
+
+        try {
+            val conn: Connection? = jdbcController.getConnectionToSQL(driverConfigData)
+            val sql = "{call HT_ESCALATION_POLICY_HISTORY('1','${date}','','','')}"
+            val cs = conn?.prepareCall(sql) ?: throw Exception("Lỗi kết nối với SQL")
+            val rs: ResultSet = cs.executeQuery()
+            while (rs.next()) {
+                listNotification.add(
+                    Notification(
+                        rs.getString("Factory"),
+                        rs.getString("FacLine"),
+                        rs.getString("DefectVN"),
+                        rs.getString("Dept"),
+                        rs.getString("ReleaseDate")
+                    )
+                )
+            }
+            conn.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return listNotification
+    }
+
+    override fun findNotificationByUser(staffId: String, date: String): List<Notification> {
+        val listNotification = mutableListOf<Notification>()
+
+        try {
+            val conn: Connection? = jdbcController.getConnectionToSQL(driverConfigData)
+            val sql = "{call HT_ESCALATION_POLICY_HISTORY('2','${date}','${staffId}','','')}"
+            val cs = conn?.prepareCall(sql) ?: throw Exception("Lỗi kết nối với SQL")
+            val rs: ResultSet = cs.executeQuery()
+            while (rs.next()) {
+                listNotification.add(
+                    Notification(
+                        rs.getString("Factory"),
+                        rs.getString("FacLine"),
+                        rs.getString("DefectVN"),
+                        rs.getString("Dept"),
+                        rs.getString("ReleaseDate")
+                    )
+                )
+            }
+            conn.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return listNotification
     }
 }

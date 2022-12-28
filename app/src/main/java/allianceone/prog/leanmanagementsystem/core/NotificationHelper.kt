@@ -1,6 +1,6 @@
 package allianceone.prog.leanmanagementsystem.core
 
-import allianceone.prog.leanmanagementsystem.MainActivity
+import allianceone.prog.leanmanagementsystem.ui.home.MainActivity
 import allianceone.prog.leanmanagementsystem.R
 import android.annotation.SuppressLint
 import android.app.NotificationChannel

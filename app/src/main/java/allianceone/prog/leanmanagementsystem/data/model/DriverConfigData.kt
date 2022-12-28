@@ -5,6 +5,7 @@ data class DriverConfigData(
     val username: String = "",
     val password: String = "",
     val database: String = "",
-    val port: String = ""
+    val port: String = "",
+    val staffId: String = ""
 )
 

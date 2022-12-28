@@ -1,8 +1,9 @@
-package allianceone.prog.leanmanagementsystem
+package allianceone.prog.leanmanagementsystem.ui.home
 
+import allianceone.prog.leanmanagementsystem.R
 import allianceone.prog.leanmanagementsystem.core.*
 import allianceone.prog.leanmanagementsystem.data.model.DriverConfigData
-import allianceone.prog.leanmanagementsystem.databinding.FragmentUserFormBinding
+import allianceone.prog.leanmanagementsystem.databinding.FragmentSqlFormBinding
 import allianceone.prog.leanmanagementsystem.repository.QuerySQLRepository
 import allianceone.prog.leanmanagementsystem.utils.SharedPreferenceHelper
 import android.os.Bundle
@@ -15,14 +16,14 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 
 
-class UserFormFragment : Fragment(), View.OnClickListener {
-    private var _binding: FragmentUserFormBinding? = null
+class SqlFormFragment : Fragment(), View.OnClickListener {
+    private var _binding: FragmentSqlFormBinding? = null
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentUserFormBinding.inflate(inflater, container, false)
+        _binding = FragmentSqlFormBinding.inflate(inflater, container, false)
         initViewBinding()
         fillLocalData()
         return binding.root
@@ -51,7 +52,7 @@ class UserFormFragment : Fragment(), View.OnClickListener {
 
     private fun initViewBinding() {
         binding.apply {
-            btnVerify.setOnClickListener(this@UserFormFragment)
+            btnVerify.setOnClickListener(this@SqlFormFragment)
             textInputLayoutStaffId.markRequiredInRed()
             textInputLayoutServerName.markRequiredInRed()
             textInputLayoutServerPort.markRequiredInRed()
@@ -65,37 +66,37 @@ class UserFormFragment : Fragment(), View.OnClickListener {
         binding.apply {
             if (edtStaffId.text.isNullOrEmpty()) {
                 textInputLayoutStaffId.error = "Enter your staff id"
-                edtStaffId.setOnErrorDisableAfterTextChanged(textInputLayoutStaffId)
+                edtStaffId.disableErrorMessageChanged()
                 return
             }
 
             if (edtServerHost.text.isNullOrEmpty()) {
                 textInputLayoutServerName.error = "Enter your server/host"
-                edtServerHost.setOnErrorDisableAfterTextChanged(textInputLayoutServerName)
+                edtServerHost.disableErrorMessageChanged()
                 return
             }
 
             if (edtServerPort.text.isNullOrEmpty()) {
                 textInputLayoutServerPort.error = "Enter your port"
-                edtServerPort.setOnErrorDisableAfterTextChanged(textInputLayoutServerPort)
+                edtServerPort.disableErrorMessageChanged()
                 return
             }
 
             if (edtUsername.text.isNullOrEmpty()) {
                 textInputLayoutUsername.error = "Enter your username"
-                edtUsername.setOnErrorDisableAfterTextChanged(textInputLayoutUsername)
+                edtUsername.disableErrorMessageChanged()
                 return
             }
 
             if (edtPassword.text.isNullOrEmpty()) {
                 textInputLayoutPassword.error = "Enter your password"
-                edtPassword.setOnErrorDisableAfterTextChanged(textInputLayoutPassword)
+                edtPassword.disableErrorMessageChanged()
                 return
             }
 
             if (edtDatabase.text.isNullOrEmpty()) {
                 textInputLayoutDatabase.error = "Enter your database"
-                edtDatabase.setOnErrorDisableAfterTextChanged(textInputLayoutDatabase)
+                edtDatabase.disableErrorMessageChanged()
                 return
             }
         }
@@ -118,7 +119,8 @@ class UserFormFragment : Fragment(), View.OnClickListener {
                         port = edtServerPort.getValue(),
                         username = edtUsername.getValue(),
                         password = edtPassword.getValue(),
-                        database = edtDatabase.getValue()
+                        database = edtDatabase.getValue(),
+                        staffId = edtStaffId.getValue()
                     )
                     val querySQLRepository = QuerySQLRepository(config)
                     val isConnectedSQL = querySQLRepository.checkOnConnection()

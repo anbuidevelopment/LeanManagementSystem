@@ -14,6 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
 import com.google.android.material.textfield.TextInputLayout
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 fun Context.vectorToBitmap(drawableId: Int): Bitmap {
     val drawable = ContextCompat.getDrawable(this, drawableId)
@@ -34,14 +37,20 @@ fun TextInputLayout.markRequiredInRed() {
     }
 }
 
-fun EditText.setOnErrorDisableAfterTextChanged(textInputLayout: TextInputLayout) {
+fun TextInputLayout.disableErrorMessage() {
+    this.error = null
+    this.isErrorEnabled = false
+}
+
+fun EditText.disableErrorMessageChanged() {
     this.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            textInputLayout.error = null
-//            textInputLayout.isErrorEnabled = false
+            if (parent is TextInputLayout) {
+                (parent as TextInputLayout).disableErrorMessage()
+            }
         }
 
         override fun afterTextChanged(editable: Editable?) {
@@ -56,7 +65,7 @@ fun EditText.hasText(): Boolean {
     return false
 }
 
-fun EditText.getValue() : String {
+fun EditText.getValue(): String {
     return this.text.toString()
 }
 
@@ -75,3 +84,16 @@ fun View.gone() {
 fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
 }
+
+fun String.longToTime(time: Long, format: String): String {
+    val date = Date(time)
+    val formatter = SimpleDateFormat(format, Locale.ROOT)
+    return formatter.format(date)
+}
+
+fun convertLongToTime(time: Long, format: String = "dd/MM/yyyy"): String {
+    val date = Date(time)
+    val formatter = SimpleDateFormat(format, Locale.ROOT)
+    return formatter.format(date)
+}
+

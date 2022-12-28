@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="description_logo_user_form">Logo Alliance One</string>
+    <string name="form_enter_staff_id">Enter your staff id</string>
+    <string name="form_enter_serverr">Enter your server/host</string>
+    <string name="form_enter_port">Enter your port</string>
+    <string name="form_enter_username">Enter your username</string>
+    <string name="form_enter_password">Enter your password</string>
+    <string name="form_enter_database">Enter your database</string>
 </resources>

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".UserFormFragment">
+        tools:context=".ui.home.SqlFormFragment">
 
         <ImageView
             android:id="@+id/img_logo"
